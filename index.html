@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
         /* --- Paleta de Colores y Variables --- */
         :root {
@@ -213,6 +214,18 @@
 
         .primary-btn:before {
             background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Flecha animada */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            color: var(--accent-color);
+            cursor: pointer;
         }
 
         /* --- Barra de Navegación --- */
@@ -784,14 +797,13 @@
             position: relative;
         }
 
-        .testimonios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+        .swiper {
+            width: 100%;
+            padding: 50px 0;
         }
 
         .testimonio {
+            min-width: 320px;
             background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(88, 166, 255, 0.2);
             border-radius: 20px;
@@ -800,11 +812,13 @@
             transition: all 0.4s ease;
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform: scale(1);
+            transform-style: preserve-3d;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .testimonio:hover {
-            transform: scale(1.03);
+            transform: translateY(-10px);
             border-color: var(--accent-color);
             box-shadow: 0 20px 40px rgba(88, 166, 255, 0.3);
         }
@@ -852,11 +866,52 @@
             gap: 3px;
         }
 
+        .estrellas .bi-star {
+            color: var(--text-secondary);
+        }
+
         .testimonio-text {
             color: var(--text-secondary);
             font-style: italic;
             line-height: 1.7;
             font-size: 1.1em;
+        }
+
+        .swiper-pagination {
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--text-secondary);
+            opacity: 0.5;
+            width: 12px;
+            height: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--accent-color);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent-color);
+            background: rgba(88, 166, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 1.5rem;
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: var(--accent-color);
+            color: var(--bg-dark);
         }
 
         /* --- Footer --- */
@@ -958,6 +1013,12 @@
             50% { transform: scale(1.3); }
             100% { transform: scale(1.2); }
         }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
 
         /* Media Queries para Móviles */
         @media (max-width: 992px) {
@@ -982,6 +1043,9 @@
             .testimonio { min-width: 280px; }
             footer .social-icons { gap: 20px; }
             footer .social-icons a { width: 60px; height: 60px; font-size: 1.8rem; }
+            .swiper-button-next, .swiper-button-prev {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1024,6 +1088,11 @@
                 <a href="#portafolio" class="hero-btn primary-btn">Ver Portafolio</a>
                 <a href="#contacto" class="hero-btn">Contactar Ahora</a>
             </div>
+        </div>
+        
+        <!-- Flecha animada para indicar scroll -->
+        <div class="scroll-indicator" onclick="document.querySelector('#sobre-mi').scrollIntoView({ behavior: 'smooth' })">
+            <i class="bi bi-chevron-down"></i>
         </div>
     </header>
 
@@ -1178,14 +1247,19 @@
         </div>
     </section>
     
-    <!-- Sección de Testimonios -->
+    <!-- Sección de Testimonios con Swiper -->
     <section id="testimonios">
         <div class="testimonios-container">
             <h2>Lo que dicen mis clientes</h2>
             <p>Reseñas de creadores satisfechos con mi trabajo</p>
             
-            <div class="testimonios-grid">
-                <!-- Las reseñas se generarán con JavaScript -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <!-- Las reseñas se generarán con JavaScript -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </div>
     </section>
@@ -1208,6 +1282,7 @@
         <p>© 2025 Alexis | Editor Profesional | Todos los derechos reservados</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Crear partículas animadas
         function createParticles() {
@@ -1237,59 +1312,6 @@
                 
                 particlesContainer.appendChild(particle);
             }
-        }
-        
-        // Generar reseñas de clientes con diferentes calificaciones
-        const testimonios = [
-            {
-                name: "María G.",
-                role: "Creadora de contenido",
-                text: "Alexis transformó completamente mis videos. Su trabajo en ritmo y narrativa hizo que mi contenido destaque. ¡Mis visualizaciones aumentaron un 200%!",
-                stars: 5
-            },
-            {
-                name: "Carlos R.",
-                role: "Empresario",
-                text: "Contraté a Alexis para los videos de mi startup. El resultado superó todas mis expectativas. Profesional, creativo y cumple plazos.",
-                stars: 4
-            },
-            {
-                name: "Laura V.",
-                role: "Influencer fitness",
-                text: "Los reels que Alexis edita para mí siempre se vuelven virales. Entiende perfectamente mi estilo y sabe cómo hacer que el contenido sea adictivo.",
-                stars: 5
-            },
-            {
-                name: "Juan M.",
-                role: "Músico",
-                text: "El trabajo de Alexis en mi último videoclip fue excepcional. Su oído musical combinado con habilidades de edición creó algo mágico.",
-                stars: 5
-            },
-            {
-                name: "Sofía P.",
-                role: "Youtuber",
-                text: "Desde que trabajo con Alexis, mi canal ha crecido exponencialmente. Su edición hace que mis videos sean mucho más atractivos y profesionales.",
-                stars: 4
-            },
-            {
-                name: "Pedro A.",
-                role: "Emprendedor",
-                text: "Los anuncios que Alexis editó para mi negocio han triplicado nuestras conversiones. Vale cada centavo invertido.",
-                stars: 5
-            }
-        ];
-        
-        // Función para generar estrellas según la calificación
-        function generateStars(count) {
-            let starsHTML = '';
-            for (let i = 0; i < 5; i++) {
-                if (i < count) {
-                    starsHTML += '<i class="bi bi-star-fill"></i>';
-                } else {
-                    starsHTML += '<i class="bi bi-star"></i>';
-                }
-            }
-            return starsHTML;
         }
         
         // Sistema de traducción
@@ -1390,6 +1412,44 @@
                 ],
                 testimonialsTitle: "Lo que dicen mis clientes",
                 testimonialsText: "Reseñas de creadores satisfechos con mi trabajo",
+                testimonials: [
+                    {
+                        name: "María G.",
+                        role: "Creadora de contenido",
+                        text: "Alexis transformó completamente mis videos. Su trabajo en ritmo y narrativa hizo que mi contenido destaque. ¡Mis visualizaciones aumentaron un 200%!",
+                        stars: 5
+                    },
+                    {
+                        name: "Carlos R.",
+                        role: "Empresario",
+                        text: "Contraté a Alexis para los videos de mi startup. El resultado superó todas mis expectativas. Profesional, creativo y cumple plazos.",
+                        stars: 4
+                    },
+                    {
+                        name: "Laura V.",
+                        role: "Influencer fitness",
+                        text: "Los reels que Alexis edita para mí siempre se vuelven virales. Entiende perfectamente mi estilo y sabe cómo hacer que el contenido sea adictivo.",
+                        stars: 5
+                    },
+                    {
+                        name: "Juan M.",
+                        role: "Músico",
+                        text: "El trabajo de Alexis en mi último videoclip fue excepcional. Su oído musical combinado con habilidades de edición creó algo mágico.",
+                        stars: 5
+                    },
+                    {
+                        name: "Sofía P.",
+                        role: "Youtuber",
+                        text: "Desde que trabajo con Alexis, mi canal ha crecido exponencialmente. Su edición hace que mis videos sean mucho más atractivos y profesionales.",
+                        stars: 4
+                    },
+                    {
+                        name: "Pedro A.",
+                        role: "Emprendedor",
+                        text: "Los anuncios que Alexis editó para mi negocio han triplicado nuestras conversiones. Vale cada centavo invertido.",
+                        stars: 5
+                    }
+                ],
                 contactTitle: "¿Listo para comenzar?",
                 contactText: "Hablemos de tu próximo proyecto. Envíame un mensaje y trabajemos juntos para crear contenido que destaque.",
                 contactBtnText: "¡Contáctame Ahora!",
@@ -1491,12 +1551,130 @@
                 ],
                 testimonialsTitle: "What My Clients Say",
                 testimonialsText: "Reviews from satisfied creators",
+                testimonials: [
+                    {
+                        name: "María G.",
+                        role: "Content Creator",
+                        text: "Alexis completely transformed my videos. His work on rhythm and narrative made my content stand out. My views increased by 200%!",
+                        stars: 5
+                    },
+                    {
+                        name: "Carlos R.",
+                        role: "Entrepreneur",
+                        text: "I hired Alexis for my startup's videos. The result exceeded all my expectations. Professional, creative, and meets deadlines.",
+                        stars: 4
+                    },
+                    {
+                        name: "Laura V.",
+                        role: "Fitness Influencer",
+                        text: "The reels Alexis edits for me always go viral. He perfectly understands my style and knows how to make content addictive.",
+                        stars: 5
+                    },
+                    {
+                        name: "Juan M.",
+                        role: "Musician",
+                        text: "Alexis' work on my last music video was exceptional. His musical ear combined with editing skills created something magical.",
+                        stars: 5
+                    },
+                    {
+                        name: "Sofía P.",
+                        role: "YouTuber",
+                        text: "Since I started working with Alexis, my channel has grown exponentially. His editing makes my videos much more attractive and professional.",
+                        stars: 4
+                    },
+                    {
+                        name: "Pedro A.",
+                        role: "Business Owner",
+                        text: "The ads Alexis edited for my business have tripled our conversions. Worth every penny invested.",
+                        stars: 5
+                    }
+                ],
                 contactTitle: "Ready to get started?",
                 contactText: "Let's talk about your next project. Send me a message and let's work together to create standout content.",
                 contactBtnText: "Contact Me Now!",
                 footerText: "© 2025 Alexis | Professional Editor | All rights reserved"
             }
         };
+        
+        // Variables globales
+        let testimonialSwiper;
+        
+        // Función para generar estrellas según la calificación
+        function generateStars(count) {
+            let starsHTML = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < count) {
+                    starsHTML += '<i class="bi bi-star-fill"></i>';
+                } else {
+                    starsHTML += '<i class="bi bi-star"></i>';
+                }
+            }
+            return starsHTML;
+        }
+        
+        // Función para generar testimonios en el carrusel
+        function generateTestimonials(testimonials) {
+            const swiperWrapper = document.querySelector('.swiper-wrapper');
+            swiperWrapper.innerHTML = '';
+            
+            testimonials.forEach(testimonio => {
+                const slide = document.createElement('div');
+                slide.classList.add('swiper-slide');
+                
+                // Primera letra del nombre para el avatar
+                const firstLetter = testimonio.name.charAt(0);
+                
+                slide.innerHTML = `
+                    <div class="testimonio">
+                        <div class="testimonio-header">
+                            <div class="testimonio-avatar">${firstLetter}</div>
+                            <div class="testimonio-info">
+                                <h4>${testimonio.name}</h4>
+                                <p>${testimonio.role}</p>
+                            </div>
+                        </div>
+                        <div class="estrellas">
+                            ${generateStars(testimonio.stars)}
+                        </div>
+                        <p class="testimonio-text">"${testimonio.text}"</p>
+                    </div>
+                `;
+                
+                swiperWrapper.appendChild(slide);
+            });
+            
+            // Si ya existe un swiper, lo destruimos y recreamos
+            if (testimonialSwiper) {
+                testimonialSwiper.destroy();
+            }
+            
+            // Inicializar Swiper
+            testimonialSwiper = new Swiper('.swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                },
+            });
+        }
         
         // Función para cambiar el idioma
         function changeLanguage(lang) {
@@ -1570,6 +1748,9 @@
             document.querySelector('#testimonios h2').textContent = langData.testimonialsTitle;
             document.querySelector('#testimonios p').textContent = langData.testimonialsText;
             
+            // Generar testimonios traducidos
+            generateTestimonials(langData.testimonials);
+            
             // Actualizar contacto
             document.querySelector('#contacto h2').textContent = langData.contactTitle;
             document.querySelector('#contacto p').textContent = langData.contactText;
@@ -1582,32 +1763,35 @@
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
-            // Generar testimonios
-            const testimoniosContainer = document.querySelector('.testimonios-grid');
-            
-            testimonios.forEach(testimonio => {
-                const testimonioEl = document.createElement('div');
-                testimonioEl.classList.add('testimonio');
-                
-                // Primera letra del nombre para el avatar
-                const firstLetter = testimonio.name.charAt(0);
-                
-                testimonioEl.innerHTML = `
-                    <div class="testimonio-header">
-                        <div class="testimonio-avatar">${firstLetter}</div>
-                        <div class="testimonio-info">
-                            <h4>${testimonio.name}</h4>
-                            <p>${testimonio.role}</p>
-                        </div>
-                    </div>
-                    <div class="estrellas">
-                        ${generateStars(testimonio.stars)}
-                    </div>
-                    <p class="testimonio-text">"${testimonio.text}"</p>
-                `;
-                
-                testimoniosContainer.appendChild(testimonioEl);
+            // Inicializar Swiper para testimonios
+            testimonialSwiper = new Swiper('.swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                },
             });
+            
+            // Generar testimonios iniciales (en español)
+            generateTestimonials(translations.es.testimonials);
             
             // Animación al hacer scroll
             const observerOptions = {
