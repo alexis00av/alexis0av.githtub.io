@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexis | Editor Profesional</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
         /* --- Paleta de Colores y Variables --- */
         :root {
@@ -20,8 +19,6 @@
             --accent-hover: #79c0ff;
             --premium-gradient: linear-gradient(135deg, #8a2be2, #58a6ff);
             --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
         }
 
         * {
@@ -33,12 +30,24 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-dark);
-            background-image: radial-gradient(circle at 10% 20%, rgba(22, 27, 34, 0.5) 0%, rgba(13, 17, 23, 0.5) 90%);
+            background: linear-gradient(135deg, #0a0d12, #0d1117);
             color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* --- Encabezado Mejorado --- */
@@ -52,12 +61,6 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
         }
 
         .video-background {
@@ -93,17 +96,6 @@
             z-index: 1;
         }
 
-        .timeline {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-            transform: translateY(100%);
-            animation: timelineAppear 1.5s ease-out forwards;
-        }
-
         .particles {
             position: absolute;
             top: 0;
@@ -121,6 +113,13 @@
             animation: float 15s infinite linear;
         }
 
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
         header h1 {
             font-size: 5.5em;
             font-weight: 800;
@@ -130,9 +129,9 @@
             margin-bottom: 0.5rem;
             text-shadow: 0 5px 20px rgba(88, 166, 255, 0.3);
             letter-spacing: -1px;
-            animation: fadeInUp 1s ease-out;
             position: relative;
             display: inline-block;
+            font-family: 'Montserrat', sans-serif;
         }
 
         header h1:after {
@@ -181,6 +180,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
         }
 
         .hero-btn:before {
@@ -197,6 +197,8 @@
 
         .hero-btn:hover {
             color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(88, 166, 255, 0.4);
         }
 
         .hero-btn:hover:before {
@@ -231,7 +233,7 @@
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
             padding: 5px 0;
             font-size: 1.1em;
@@ -256,10 +258,41 @@
             width: 100%;
         }
 
+        /* Selector de idioma */
+        .language-selector {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            color: var(--text-primary);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
+        }
+
+        .lang-btn:hover {
+            background: rgba(88, 166, 255, 0.3);
+        }
+
         /* --- Secciones --- */
         section {
             padding: 120px 20px;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             text-align: center;
             opacity: 0;
@@ -279,6 +312,7 @@
             color: var(--text-primary);
             position: relative;
             display: inline-block;
+            font-family: 'Montserrat', sans-serif;
         }
 
         section h2::after {
@@ -308,7 +342,7 @@
             flex-wrap: wrap;
             gap: 40px;
             margin-top: 60px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 60px auto 0;
         }
 
@@ -332,6 +366,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.2);
         }
 
         .skill-icon:before {
@@ -355,17 +390,12 @@
 
         .skill-item:hover .skill-icon {
             transform: translateY(-10px) rotate(5deg);
-            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.4);
         }
 
         .skill-item:hover .skill-icon i {
             transform: scale(1.2);
-        }
-
-        .skill-item span {
-            font-size: 1.1em;
-            color: var(--text-primary);
-            font-weight: 500;
+            animation: iconPulse 0.8s ease-out;
         }
 
         /* --- Tarjetas de Servicios --- */
@@ -381,19 +411,12 @@
             padding: 40px 30px;
             border-radius: 20px;
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transform: perspective(1000px) rotateY(15deg);
-            animation: cardFloat 8s infinite ease-in-out;
-            animation-delay: calc(var(--delay) * 0.5s);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(1);
         }
-
-        .servicio:nth-child(1) { --delay: 0; }
-        .servicio:nth-child(2) { --delay: 1; }
-        .servicio:nth-child(3) { --delay: 2; }
 
         .servicio:before {
             content: '';
@@ -408,9 +431,9 @@
         }
 
         .servicio:hover {
-            transform: translateY(-15px) rotateX(5deg) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            animation: none;
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(88, 166, 255, 0.3);
+            z-index: 2;
         }
 
         .servicio:hover:before {
@@ -421,11 +444,12 @@
             font-size: 4rem;
             margin-bottom: 25px;
             color: var(--accent-color);
-            transition: transform 0.4s ease;
+            transition: all 0.4s ease;
         }
 
         .servicio:hover i {
-            transform: scale(1.2) rotate(10deg);
+            transform: scale(1.2);
+            animation: iconPulse 0.8s ease-out;
         }
         
         .servicio h3 {
@@ -454,22 +478,22 @@
             border-radius: 20px;
             padding: 50px 30px;
             position: relative;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: all 0.4s ease;
             overflow: hidden;
             text-align: center;
-            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .plan:hover {
-            transform: translateY(-10px) rotateY(5deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(88, 166, 255, 0.3);
         }
 
         .plan.recomendado {
             border: 2px solid var(--accent-color);
             transform: scale(1.03);
             z-index: 2;
-            box-shadow: 0 20px 40px rgba(88, 166, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(88, 166, 255, 0.4);
         }
 
         .plan.recomendado::before {
@@ -553,6 +577,9 @@
             transition: all 0.4s ease;
             border: 2px solid var(--accent-color);
             font-size: 1.1em;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
         .plan .cta-plan:hover {
@@ -620,15 +647,16 @@
             overflow: hidden;
             cursor: pointer;
             border: 1px solid rgba(88, 166, 255, 0.2);
-            transition: transform 0.4s ease;
+            transition: all 0.4s ease;
             height: 400px;
-            transform-style: preserve-3d;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(1);
         }
 
         .portafolio-item:hover {
-            transform: scale(1.03) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(88, 166, 255, 0.3);
+            z-index: 2;
         }
 
         .portafolio-item img {
@@ -684,6 +712,7 @@
             max-width: 900px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
         }
 
         #contacto:before {
@@ -717,7 +746,6 @@
             z-index: 1;
             font-size: 1.2em;
             box-shadow: 0 10px 30px rgba(88, 166, 255, 0.4);
-            transform-style: preserve-3d;
         }
 
         .cta-button:before {
@@ -734,7 +762,7 @@
 
         .cta-button:hover {
             background: var(--accent-hover);
-            transform: translateY(-5px) rotateY(10deg);
+            transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(88, 166, 255, 0.6);
         }
 
@@ -751,20 +779,19 @@
         }
 
         .testimonios-container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
         }
 
-        .carrusel {
-            display: flex;
-            transition: transform 0.6s ease-in-out;
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            padding: 30px 0;
+            margin-top: 50px;
         }
 
         .testimonio {
-            min-width: 320px;
             background: rgba(13, 17, 23, 0.9);
             border: 1px solid rgba(88, 166, 255, 0.2);
             border-radius: 20px;
@@ -772,16 +799,14 @@
             text-align: left;
             transition: all 0.4s ease;
             position: relative;
-            flex: 0 0 auto;
-            width: 320px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
+            transform: scale(1);
         }
 
         .testimonio:hover {
-            transform: translateY(-10px) rotateX(3deg);
+            transform: scale(1.03);
             border-color: var(--accent-color);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(88, 166, 255, 0.3);
         }
 
         .testimonio-header {
@@ -823,6 +848,8 @@
             color: var(--gold);
             margin-bottom: 15px;
             font-size: 1.2em;
+            display: flex;
+            gap: 3px;
         }
 
         .testimonio-text {
@@ -830,55 +857,6 @@
             font-style: italic;
             line-height: 1.7;
             font-size: 1.1em;
-        }
-
-        .carrusel-controls {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .carrusel-btn {
-            background: var(--accent-color);
-            color: var(--bg-dark);
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
-        }
-
-        .carrusel-btn:hover {
-            background: var(--accent-hover);
-            transform: scale(1.1) rotate(15deg);
-        }
-
-        .carrusel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        .indicator {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .indicator.active {
-            background: var(--accent-color);
-            transform: scale(1.3);
         }
 
         /* --- Footer --- */
@@ -921,6 +899,7 @@
             border: 1px solid rgba(88, 166, 255, 0.2);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         footer .social-icons a:before {
@@ -939,6 +918,7 @@
         footer .social-icons a:hover {
             color: var(--bg-dark);
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(88, 166, 255, 0.3);
         }
 
         footer .social-icons a:hover:before {
@@ -968,19 +948,15 @@
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
         
-        @keyframes timelineAppear {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        
         @keyframes expandLine {
             from { width: 0; opacity: 0; }
             to { width: 200px; opacity: 1; }
         }
         
-        @keyframes cardFloat {
-            0%, 100% { transform: perspective(1000px) rotateY(15deg) translateY(0); }
-            50% { transform: perspective(1000px) rotateY(15deg) translateY(-15px); }
+        @keyframes iconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1.2); }
         }
 
         /* Media Queries para Móviles */
@@ -992,7 +968,6 @@
             .plan.recomendado { transform: scale(1); }
             .portafolio-grid { grid-template-columns: 1fr; }
             .portafolio-item { height: 350px; }
-            .servicio { animation: none !important; }
         }
         
         @media (max-width: 768px) {
@@ -1019,11 +994,18 @@
             .skill-icon i { font-size: 1.8rem; }
             .skill-item span { font-size: 1em; }
             #contacto { padding: 50px 20px; }
+            .language-selector { top: 10px; right: 10px; }
         }
 
     </style>
 </head>
 <body>
+
+    <!-- Selector de idioma -->
+    <div class="language-selector">
+        <div class="lang-btn active" data-lang="es">ES</div>
+        <div class="lang-btn" data-lang="en">EN</div>
+    </div>
 
     <header>
         <div class="video-background">
@@ -1032,7 +1014,6 @@
             </video>
         </div>
         <div class="editor-overlay"></div>
-        <div class="timeline"></div>
         <div class="particles" id="particles"></div>
         
         <div class="hero-content">
@@ -1051,6 +1032,7 @@
         <a href="#servicios">Servicios</a>
         <a href="#precios">Precios</a>
         <a href="#portafolio">Portafolio</a>
+        <a href="#testimonios">Reseñas</a>
         <a href="#contacto">Contacto</a>
     </nav>
 
@@ -1076,6 +1058,12 @@
                     <i class="bi bi-lightning"></i>
                 </div>
                 <span>Motion Graphics</span>
+            </div>
+            <div class="skill-item">
+                <div class="skill-icon">
+                    <i class="bi bi-mic"></i>
+                </div>
+                <span>Audio Profesional</span>
             </div>
         </div>
     </section>
@@ -1190,31 +1178,22 @@
         </div>
     </section>
     
-    <section id="contacto">
-        <h2>¿Listo para comenzar?</h2>
-        <p>Hablemos de tu próximo proyecto. Envíame un mensaje y trabajemos juntos para crear contenido que destaque.</p>
-        <a href="mailto:alexiseditor@correo.com" class="cta-button">¡Contáctame Ahora!</a>
-    </section>
-    
-    <!-- Sección de Testimonios tipo Carrusel -->
+    <!-- Sección de Testimonios -->
     <section id="testimonios">
         <div class="testimonios-container">
             <h2>Lo que dicen mis clientes</h2>
             <p>Reseñas de creadores satisfechos con mi trabajo</p>
             
-            <div class="carrusel" id="carrusel">
+            <div class="testimonios-grid">
                 <!-- Las reseñas se generarán con JavaScript -->
             </div>
-            
-            <div class="carrusel-controls">
-                <button class="carrusel-btn" id="prevBtn"><i class="bi bi-chevron-left"></i></button>
-                <button class="carrusel-btn" id="nextBtn"><i class="bi bi-chevron-right"></i></button>
-            </div>
-            
-            <div class="carrusel-indicators" id="indicators">
-                <!-- Los indicadores se generarán con JavaScript -->
-            </div>
         </div>
+    </section>
+    
+    <section id="contacto">
+        <h2>¿Listo para comenzar?</h2>
+        <p>Hablemos de tu próximo proyecto. Envíame un mensaje y trabajemos juntos para crear contenido que destaque.</p>
+        <a href="mailto:alexiseditor@correo.com" class="cta-button">¡Contáctame Ahora!</a>
     </section>
 
     <footer>
@@ -1297,30 +1276,6 @@
                 role: "Emprendedor",
                 text: "Los anuncios que Alexis editó para mi negocio han triplicado nuestras conversiones. Vale cada centavo invertido.",
                 stars: 5
-            },
-            {
-                name: "Lucía T.",
-                role: "Educadora",
-                text: "Contraté a Alexis para mis videos educativos. Su trabajo fue bueno aunque hubo algunos retrasos en la entrega.",
-                stars: 3
-            },
-            {
-                name: "Miguel S.",
-                role: "Diseñador",
-                text: "Excelente trabajo en mi portafolio audiovisual. Las animaciones y transiciones son impresionantes.",
-                stars: 5
-            },
-            {
-                name: "Ana K.",
-                role: "Podcaster",
-                text: "Alexis editó mis videos de podcast con gran profesionalismo. La calidad de sonido mejoró significativamente.",
-                stars: 4
-            },
-            {
-                name: "Roberto F.",
-                role: "Fotógrafo",
-                text: "Buen trabajo en mi reel de fotografía, aunque esperaba un poco más de creatividad en las transiciones.",
-                stars: 3
             }
         ];
         
@@ -1337,14 +1292,299 @@
             return starsHTML;
         }
         
-        // Carrusel de testimonios
+        // Sistema de traducción
+        const translations = {
+            es: {
+                title: "Alexis | Editor Profesional",
+                headerTitle: "Alexis",
+                headerSubtitle: "Editor de video profesional | Transformando ideas en experiencias visuales",
+                portfolioBtn: "Ver Portafolio",
+                contactBtn: "Contactar Ahora",
+                navAbout: "Sobre mí",
+                navServices: "Servicios",
+                navPricing: "Precios",
+                navPortfolio: "Portafolio",
+                navTestimonials: "Reseñas",
+                navContact: "Contacto",
+                aboutTitle: "Hola, soy Alexis",
+                aboutText: "Con más de 5 años de experiencia en la industria audiovisual, he trabajado con creadores de contenido, marcas y emprendedores para transformar sus ideas en piezas visuales impactantes. Mi enfoque combina técnica avanzada, creatividad estratégica y una atención meticulosa al detalle para garantizar que cada proyecto supere las expectativas.",
+                skills: [
+                    {name: "Edición Profesional", icon: "bi-camera-reels"},
+                    {name: "Diseño de Sonido", icon: "bi-music-note-beamed"},
+                    {name: "Motion Graphics", icon: "bi-lightning"},
+                    {name: "Audio Profesional", icon: "bi-mic"}
+                ],
+                servicesTitle: "Mis Servicios",
+                services: [
+                    {
+                        icon: "bi-film",
+                        title: "Edición de Video Avanzada",
+                        text: "Desde cortes precisos hasta corrección de color profesional, transformo tu material en piezas visuales pulidas y coherentes que transmiten tu mensaje con claridad y estilo."
+                    },
+                    {
+                        icon: "bi-instagram",
+                        title: "Contenido para Redes Sociales",
+                        text: "Videos cortos, dinámicos y optimizados para Reels, TikTok y Shorts, diseñados para captar la atención y aumentar el engagement con tu audiencia."
+                    },
+                    {
+                        icon: "bi-rocket-takeoff",
+                        title: "Videos Publicitarios",
+                        text: "Anuncios persuasivos que destacan tu producto o servicio y llevan a la acción. Combinamos storytelling emocional con llamados a acción efectivos."
+                    }
+                ],
+                pricingTitle: "Planes y Precios",
+                pricingText: "Opciones flexibles diseñadas para adaptarse a tus necesidades creativas y presupuesto.",
+                plans: [
+                    {
+                        name: "Básico",
+                        price: "$99",
+                        features: [
+                            "Hasta 5 minutos de duración",
+                            "Edición estándar",
+                            "Corrección de color básica",
+                            "1 revisión",
+                            "Entrega en 3 días"
+                        ]
+                    },
+                    {
+                        name: "Profesional",
+                        price: "$199",
+                        features: [
+                            "Hasta 10 minutos de duración",
+                            "Edición avanzada",
+                            "Corrección de color profesional",
+                            "2 revisiones",
+                            "Transiciones y efectos",
+                            "Diseño básico de sonido",
+                            "Entrega en 2 días"
+                        ]
+                    },
+                    {
+                        name: "Premium",
+                        price: "$349",
+                        features: [
+                            "Duración ilimitada",
+                            "Edición profesional completa",
+                            "Motion graphics y animaciones",
+                            "Diseño de sonido profesional",
+                            "Subtítulos y gráficos",
+                            "Revisiones ilimitadas",
+                            "Entrega en 24-48 horas",
+                            "Soporte prioritario"
+                        ]
+                    }
+                ],
+                notesTitle: "Notas importantes",
+                notes: [
+                    "Los precios son por video editado y pueden variar según la complejidad del proyecto",
+                    "Ofrezco descuentos especiales para paquetes de múltiples videos",
+                    "Todos los planes incluyen derechos de uso del contenido final",
+                    "Garantía de satisfacción: si no estás contento con el resultado, realizaré revisiones sin costo adicional",
+                    "Proyectos complejos o especializados pueden requerir un presupuesto personalizado"
+                ],
+                portfolioTitle: "Trabajos Destacados",
+                portfolioItems: [
+                    {title: "Campaña para Marca Fitness", desc: "Edición y Post-producción"},
+                    {title: "Reel Viral para Creador", desc: "Edición dinámica y subtítulos"},
+                    {title: "Anuncio para App Móvil", desc: "Motion Graphics y edición"}
+                ],
+                testimonialsTitle: "Lo que dicen mis clientes",
+                testimonialsText: "Reseñas de creadores satisfechos con mi trabajo",
+                contactTitle: "¿Listo para comenzar?",
+                contactText: "Hablemos de tu próximo proyecto. Envíame un mensaje y trabajemos juntos para crear contenido que destaque.",
+                contactBtnText: "¡Contáctame Ahora!",
+                footerText: "© 2025 Alexis | Editor Profesional | Todos los derechos reservados"
+            },
+            en: {
+                title: "Alexis | Professional Editor",
+                headerTitle: "Alexis",
+                headerSubtitle: "Professional Video Editor | Transforming ideas into visual experiences",
+                portfolioBtn: "View Portfolio",
+                contactBtn: "Contact Now",
+                navAbout: "About Me",
+                navServices: "Services",
+                navPricing: "Pricing",
+                navPortfolio: "Portfolio",
+                navTestimonials: "Testimonials",
+                navContact: "Contact",
+                aboutTitle: "Hello, I'm Alexis",
+                aboutText: "With over 5 years of experience in the audiovisual industry, I've worked with content creators, brands, and entrepreneurs to transform their ideas into impactful visual pieces. My approach combines advanced technique, strategic creativity, and meticulous attention to detail to ensure every project exceeds expectations.",
+                skills: [
+                    {name: "Professional Editing", icon: "bi-camera-reels"},
+                    {name: "Sound Design", icon: "bi-music-note-beamed"},
+                    {name: "Motion Graphics", icon: "bi-lightning"},
+                    {name: "Professional Audio", icon: "bi-mic"}
+                ],
+                servicesTitle: "My Services",
+                services: [
+                    {
+                        icon: "bi-film",
+                        title: "Advanced Video Editing",
+                        text: "From precise cuts to professional color correction, I transform your footage into polished and coherent visual pieces that convey your message with clarity and style."
+                    },
+                    {
+                        icon: "bi-instagram",
+                        title: "Social Media Content",
+                        text: "Short, dynamic videos optimized for Reels, TikTok, and Shorts, designed to capture attention and increase engagement with your audience."
+                    },
+                    {
+                        icon: "bi-rocket-takeoff",
+                        title: "Advertising Videos",
+                        text: "Persuasive ads that highlight your product or service and drive action. We combine emotional storytelling with effective calls to action."
+                    }
+                ],
+                pricingTitle: "Plans and Pricing",
+                pricingText: "Flexible options designed to fit your creative needs and budget.",
+                plans: [
+                    {
+                        name: "Basic",
+                        price: "$99",
+                        features: [
+                            "Up to 5 minutes duration",
+                            "Standard editing",
+                            "Basic color correction",
+                            "1 revision",
+                            "Delivery in 3 days"
+                        ]
+                    },
+                    {
+                        name: "Professional",
+                        price: "$199",
+                        features: [
+                            "Up to 10 minutes duration",
+                            "Advanced editing",
+                            "Professional color correction",
+                            "2 revisions",
+                            "Transitions and effects",
+                            "Basic sound design",
+                            "Delivery in 2 days"
+                        ]
+                    },
+                    {
+                        name: "Premium",
+                        price: "$349",
+                        features: [
+                            "Unlimited duration",
+                            "Complete professional editing",
+                            "Motion graphics and animations",
+                            "Professional sound design",
+                            "Subtitles and graphics",
+                            "Unlimited revisions",
+                            "Delivery in 24-48 hours",
+                            "Priority support"
+                        ]
+                    }
+                ],
+                notesTitle: "Important Notes",
+                notes: [
+                    "Prices are per edited video and may vary based on project complexity",
+                    "Special discounts available for multiple video packages",
+                    "All plans include usage rights for the final content",
+                    "Satisfaction guarantee: if you're not happy with the result, I'll make revisions at no additional cost",
+                    "Complex or specialized projects may require a custom quote"
+                ],
+                portfolioTitle: "Featured Works",
+                portfolioItems: [
+                    {title: "Campaign for Fitness Brand", desc: "Editing and Post-production"},
+                    {title: "Viral Reel for Creator", desc: "Dynamic editing and subtitles"},
+                    {title: "Ad for Mobile App", desc: "Motion Graphics and editing"}
+                ],
+                testimonialsTitle: "What My Clients Say",
+                testimonialsText: "Reviews from satisfied creators",
+                contactTitle: "Ready to get started?",
+                contactText: "Let's talk about your next project. Send me a message and let's work together to create standout content.",
+                contactBtnText: "Contact Me Now!",
+                footerText: "© 2025 Alexis | Professional Editor | All rights reserved"
+            }
+        };
+        
+        // Función para cambiar el idioma
+        function changeLanguage(lang) {
+            const langData = translations[lang];
+            
+            // Actualizar elementos de la página
+            document.title = langData.title;
+            document.querySelector('header h1').textContent = langData.headerTitle;
+            document.querySelector('header .subtitle').textContent = langData.headerSubtitle;
+            document.querySelector('.primary-btn').textContent = langData.portfolioBtn;
+            document.querySelector('.hero-btn:not(.primary-btn)').textContent = langData.contactBtn;
+            
+            // Actualizar navegación
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks[0].textContent = langData.navAbout;
+            navLinks[1].textContent = langData.navServices;
+            navLinks[2].textContent = langData.navPricing;
+            navLinks[3].textContent = langData.navPortfolio;
+            navLinks[4].textContent = langData.navTestimonials;
+            navLinks[5].textContent = langData.navContact;
+            
+            // Actualizar sección sobre mí
+            document.querySelector('#sobre-mi h2').textContent = langData.aboutTitle;
+            document.querySelector('#sobre-mi p').textContent = langData.aboutText;
+            
+            // Actualizar habilidades
+            const skills = document.querySelectorAll('.skill-item span');
+            langData.skills.forEach((skill, index) => {
+                skills[index].textContent = skill.name;
+            });
+            
+            // Actualizar servicios
+            document.querySelector('#servicios h2').textContent = langData.servicesTitle;
+            const services = document.querySelectorAll('.servicio');
+            langData.services.forEach((service, index) => {
+                services[index].querySelector('h3').textContent = service.title;
+                services[index].querySelector('p').textContent = service.text;
+            });
+            
+            // Actualizar precios
+            document.querySelector('#precios h2').textContent = langData.pricingTitle;
+            document.querySelector('#precios p').textContent = langData.pricingText;
+            
+            const plans = document.querySelectorAll('.plan');
+            langData.plans.forEach((plan, index) => {
+                plans[index].querySelector('.nombre-plan').textContent = plan.name;
+                plans[index].querySelector('.precio').innerHTML = `${plan.price}<span> / video</span>`;
+                
+                const features = plans[index].querySelectorAll('.caracteristicas li');
+                plan.features.forEach((feature, featIndex) => {
+                    features[featIndex].textContent = feature;
+                });
+            });
+            
+            // Actualizar notas
+            document.querySelector('.notes-container h3').innerHTML = `<i class="bi bi-info-circle"></i> ${langData.notesTitle}`;
+            const notes = document.querySelectorAll('.notes-container li');
+            langData.notes.forEach((note, index) => {
+                notes[index].textContent = note;
+            });
+            
+            // Actualizar portafolio
+            document.querySelector('#portafolio h2').textContent = langData.portfolioTitle;
+            const portfolioItems = document.querySelectorAll('.overlay h3, .overlay p');
+            langData.portfolioItems.forEach((item, index) => {
+                portfolioItems[index * 2].textContent = item.title;
+                portfolioItems[index * 2 + 1].textContent = item.desc;
+            });
+            
+            // Actualizar testimonios
+            document.querySelector('#testimonios h2').textContent = langData.testimonialsTitle;
+            document.querySelector('#testimonios p').textContent = langData.testimonialsText;
+            
+            // Actualizar contacto
+            document.querySelector('#contacto h2').textContent = langData.contactTitle;
+            document.querySelector('#contacto p').textContent = langData.contactText;
+            document.querySelector('.cta-button').textContent = langData.contactBtnText;
+            
+            // Actualizar footer
+            document.querySelector('footer p').textContent = langData.footerText;
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
-            const carrusel = document.getElementById('carrusel');
-            const indicatorsContainer = document.getElementById('indicators');
-            
             // Generar testimonios
+            const testimoniosContainer = document.querySelector('.testimonios-grid');
+            
             testimonios.forEach(testimonio => {
                 const testimonioEl = document.createElement('div');
                 testimonioEl.classList.add('testimonio');
@@ -1366,56 +1606,8 @@
                     <p class="testimonio-text">"${testimonio.text}"</p>
                 `;
                 
-                carrusel.appendChild(testimonioEl);
+                testimoniosContainer.appendChild(testimonioEl);
             });
-            
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            const testimoniosEl = document.querySelectorAll('.testimonio');
-            const testimoniosPerPage = 3;
-            const totalPages = Math.ceil(testimoniosEl.length / testimoniosPerPage);
-            let currentPage = 0;
-            
-            // Crear indicadores
-            for (let i = 0; i < totalPages; i++) {
-                const indicator = document.createElement('div');
-                indicator.classList.add('indicator');
-                if (i === 0) indicator.classList.add('active');
-                indicator.dataset.page = i;
-                indicator.addEventListener('click', () => goToPage(i));
-                indicatorsContainer.appendChild(indicator);
-            }
-            
-            // Función para actualizar el carrusel
-            function updateCarrusel() {
-                const scrollPosition = currentPage * testimoniosEl[0].offsetWidth * testimoniosPerPage;
-                carrusel.style.transform = `translateX(-${scrollPosition}px)`;
-                
-                // Actualizar indicadores
-                document.querySelectorAll('.indicator').forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === currentPage);
-                });
-            }
-            
-            // Navegación
-            function goToPage(page) {
-                currentPage = page;
-                if (currentPage < 0) currentPage = totalPages - 1;
-                if (currentPage >= totalPages) currentPage = 0;
-                updateCarrusel();
-            }
-            
-            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
-            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
-            
-            // Auto-desplazamiento
-            setInterval(() => {
-                goToPage(currentPage + 1);
-            }, 5000);
-            
-            // Inicializar carrusel
-            updateCarrusel();
             
             // Animación al hacer scroll
             const observerOptions = {
@@ -1435,6 +1627,22 @@
             // Observar cada sección
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
+            });
+            
+            // Cambio de idioma
+            const langButtons = document.querySelectorAll('.lang-btn');
+            
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remover clase activa de todos los botones
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Agregar clase activa al botón clickeado
+                    button.classList.add('active');
+                    
+                    // Cambiar idioma
+                    changeLanguage(button.dataset.lang);
+                });
             });
         });
     </script>
