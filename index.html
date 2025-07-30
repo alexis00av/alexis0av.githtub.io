@@ -1344,7 +1344,7 @@
         <div class="portafolio-grid">
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1s2chnog65ho82v1k0g" type="video/mp4">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-cinematic-mountains-and-a-lake-43131-large.mp4" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1357,7 +1357,7 @@
             </div>
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1s2enfog65qfgb1qsd0" type="video/mp4">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-running-in-a-city-park-43075-large.mp4" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1370,7 +1370,7 @@
             </div>
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1m4opnog65hcr4g8bj0" type="video/mp4">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-using-a-smartphone-43132-large.mp4" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1384,7 +1384,6 @@
         </div>
     </section>
     
-    <!-- Nueva Sección de Recursos -->
     <section id="recursos">
         <h2>Recursos</h2>
         <p>Material de Motion Graphics</p>
@@ -1402,7 +1401,6 @@
         </div>
     </section>
     
-    <!-- Sección de Testimonios con Swiper -->
     <section id="testimonios">
         <div class="testimonios-container">
             <h2>Lo que dicen mis clientes</h2>
@@ -1456,20 +1454,16 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Tamaño aleatorio
                 const size = Math.random() * 10 + 5;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
-                // Posición inicial aleatoria
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
                 
-                // Color con variación
                 const hue = 210 + Math.random() * 20;
                 particle.style.background = `hsla(${hue}, 100%, 70%, ${Math.random() * 0.5 + 0.2})`;
                 
-                // Animación
                 particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
                 
@@ -1788,7 +1782,6 @@
                 const slide = document.createElement('div');
                 slide.classList.add('swiper-slide');
                 
-                // Primera letra del nombre para el avatar
                 const firstLetter = testimonio.name.charAt(0);
                 
                 slide.innerHTML = `
@@ -1810,12 +1803,10 @@
                 swiperWrapper.appendChild(slide);
             });
             
-            // Si ya existe un swiper, lo destruimos y recreamos
             if (testimonialSwiper) {
                 testimonialSwiper.destroy();
             }
             
-            // Inicializar Swiper
             testimonialSwiper = new Swiper('.swiper', {
                 slidesPerView: 1,
                 spaceBetween: 30,
@@ -1847,14 +1838,12 @@
         function changeLanguage(lang) {
             const langData = translations[lang];
             
-            // Actualizar elementos de la página
             document.title = langData.title;
             document.querySelector('header h1').textContent = langData.headerTitle;
             document.querySelector('header .subtitle').textContent = langData.headerSubtitle;
             document.querySelector('.primary-btn').textContent = langData.portfolioBtn;
             document.querySelector('.hero-btn:not(.primary-btn)').textContent = langData.contactBtn;
             
-            // Actualizar navegación
             const navLinks = document.querySelectorAll('nav a');
             navLinks[0].textContent = langData.navAbout;
             navLinks[1].textContent = langData.navServices;
@@ -1864,17 +1853,14 @@
             navLinks[5].textContent = langData.navResources;
             navLinks[6].textContent = langData.navContact;
             
-            // Actualizar sección sobre mí
             document.querySelector('#sobre-mi h2').textContent = langData.aboutTitle;
             document.querySelector('#sobre-mi p').textContent = langData.aboutText;
             
-            // Actualizar habilidades
             const skills = document.querySelectorAll('.skill-item span');
             langData.skills.forEach((skill, index) => {
                 skills[index].textContent = skill.name;
             });
             
-            // Actualizar servicios
             document.querySelector('#servicios h2').textContent = langData.servicesTitle;
             const services = document.querySelectorAll('.servicio');
             langData.services.forEach((service, index) => {
@@ -1882,7 +1868,6 @@
                 services[index].querySelector('p').textContent = service.text;
             });
             
-            // Actualizar precios
             document.querySelector('#precios h2').textContent = langData.pricingTitle;
             document.querySelector('#precios p').textContent = langData.pricingText;
             
@@ -1897,14 +1882,12 @@
                 });
             });
             
-            // Actualizar notas
             document.querySelector('.notes-container h3').innerHTML = `<i class="bi bi-info-circle"></i> ${langData.notesTitle}`;
             const notes = document.querySelectorAll('.notes-container li');
             langData.notes.forEach((note, index) => {
                 notes[index].textContent = note;
             });
             
-            // Actualizar portafolio
             document.querySelector('#portafolio h2').textContent = langData.portfolioTitle;
             const portfolioItems = document.querySelectorAll('.overlay h3, .overlay p');
             langData.portfolioItems.forEach((item, index) => {
@@ -1912,19 +1895,87 @@
                 portfolioItems[index * 2 + 1].textContent = item.desc;
             });
             
-            // Actualizar recursos
             document.querySelector('#recursos h2').textContent = langData.resourcesTitle;
             document.querySelector('#recursos p').textContent = langData.resourcesText;
             
-            // Actualizar testimonios
             document.querySelector('#testimonios h2').textContent = langData.testimonialsTitle;
             document.querySelector('#testimonios p').textContent = langData.testimonialsText;
             
-            // Generar testimonios traducidos
             generateTestimonials(langData.testimonials);
             
-            // Actualizar contacto
             document.querySelector('#contacto h2').textContent = langData.contactTitle;
             document.querySelector('#contacto p').textContent = langData.contactText;
             
-            // Actualizar footer
+            document.querySelector('footer p').textContent = langData.footerText;
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+        
+        // Funcionalidad de pantalla completa para videos
+        function toggleFullScreen(video, button) {
+            if (!document.fullscreenElement) {
+                video.requestFullscreen().catch(err => {
+                    console.error(`Error al entrar en pantalla completa: ${err.message}`);
+                });
+                button.querySelector('i').classList.remove('bi-arrows-fullscreen');
+                button.querySelector('i').classList.add('bi-fullscreen-exit');
+            } else {
+                document.exitFullscreen();
+                button.querySelector('i').classList.remove('bi-fullscreen-exit');
+                button.querySelector('i').classList.add('bi-arrows-fullscreen');
+            }
+        }
+        
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            generateTestimonials(translations.es.testimonials);
+            
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    changeLanguage(button.dataset.lang);
+                });
+            });
+            
+            // Animación de entrada para secciones
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Añadir funcionalidad de pantalla completa a los videos
+            document.querySelectorAll('.portafolio-item').forEach(item => {
+                const video = item.querySelector('video');
+                const button = item.querySelector('.fullscreen-btn');
+                
+                button.addEventListener('click', () => {
+                    toggleFullScreen(video, button);
+                });
+                
+                // Actualizar ícono cuando se sale de pantalla completa
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement) {
+                        button.querySelector('i').classList.remove('bi-fullscreen-exit');
+                        button.querySelector('i').classList.add('bi-arrows-fullscreen');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
