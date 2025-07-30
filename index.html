@@ -667,16 +667,11 @@
             z-index: 2;
         }
 
-        .portafolio-item iframe {
+        .portafolio-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.6s ease;
-        }
-
-        .portafolio-item:hover iframe {
-            transform: scale(1.1);
+            cursor: pointer;
         }
 
         .portafolio-item .overlay {
@@ -711,32 +706,34 @@
             font-size: 1.1em;
         }
 
-        .fullscreen-btn {
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close {
             position: absolute;
             top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--text-primary);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            right: 25px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .fullscreen-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-dark);
-            transform: scale(1.1);
-        }
-
-        .fullscreen-btn i {
-            font-size: 1.2em;
         }
 
         #contacto {
@@ -1322,53 +1319,34 @@
     <section id="portafolio">
         <h2>Trabajos Destacados</h2>
         <div class="portafolio-grid">
-            <div class="portafolio-item">
-                <iframe 
-                    src="https://www.youtube.com/embed/sZ3yxnl3VJg" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    title="Campaña para Marca Fitness"
-                ></iframe>
-                <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button>
+            <div class="portafolio-item" data-video-id="sZ3yxnl3VJg">
+                <img src="https://img.youtube.com/vi/sZ3yxnl3VJg/hqdefault.jpg" alt="Campaña para Marca Fitness">
                 <div class="overlay">
                     <h3>Campaña para Marca Fitness</h3>
                     <p>Edición y Post-producción</p>
                 </div>
             </div>
-            <div class="portafolio-item">
-                <iframe 
-                    src="https://www.youtube.com/embed/sZ3yxnl3VJg" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    title="Reel Viral para Creador"
-                ></iframe>
-                <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button>
+            <div class="portafolio-item" data-video-id="sZ3yxnl3VJg">
+                <img src="https://img.youtube.com/vi/sZ3yxnl3VJg/hqdefault.jpg" alt="Reel Viral para Creador">
                 <div class="overlay">
                     <h3>Reel Viral para Creador</h3>
                     <p>Edición dinámica y subtítulos</p>
                 </div>
             </div>
-            <div class="portafolio-item">
-                <iframe 
-                    src="https://www.youtube.com/embed/RpAwiSYfDAo" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    title="Anuncio para App Móvil"
-                ></iframe>
-                <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
-                    <i class="bi bi-arrows-fullscreen"></i>
-                </button>
+            <div class="portafolio-item" data-video-id="RpAwiSYfDAo">
+                <img src="https://img.youtube.com/vi/RpAwiSYfDAo/hqdefault.jpg" alt="Anuncio para App Móvil">
                 <div class="overlay">
                     <h3>Anuncio para App Móvil</h3>
                     <p>Motion Graphics y edición</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Modal para mostrar el video -->
+        <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <iframe id="videoFrame" width="100%" height="500" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </section>
@@ -1902,26 +1880,33 @@
             });
         }
         
-        // Funcionalidad de pantalla completa para iframes
-        function toggleFullScreen(iframe, button) {
-            if (!document.fullscreenElement) {
-                iframe.requestFullscreen().catch(err => {
-                    console.error(`Error al entrar en pantalla completa: ${err.message}`);
-                    alert('No se pudo activar el modo de pantalla completa. Por favor, verifica las configuraciones de tu navegador o intenta en otro dispositivo.');
-                });
-                button.querySelector('i').classList.remove('bi-arrows-fullscreen');
-                button.querySelector('i').classList.add('bi-fullscreen-exit');
-            } else {
-                document.exitFullscreen().catch(err => {
-                    console.error(`Error al salir de pantalla completa: ${err.message}`);
-                });
-                button.querySelector('i').classList.remove('bi-fullscreen-exit');
-                button.querySelector('i').classList.add('bi-arrows-fullscreen');
-            }
-        }
-        
-        // Inicializar página
+        // Funcionalidad del modal de video
         document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('videoModal');
+            const videoFrame = document.getElementById('videoFrame');
+            const closeBtn = document.querySelector('.close');
+
+            document.querySelectorAll('.portafolio-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const videoId = item.getAttribute('data-video-id');
+                    videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                    modal.style.display = 'flex';
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                videoFrame.src = '';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    videoFrame.src = '';
+                }
+            });
+
+            // Crear partículas
             createParticles();
             generateTestimonials(translations.es.testimonials);
             
@@ -1948,24 +1933,6 @@
             
             sections.forEach(section => {
                 observer.observe(section);
-            });
-            
-            // Añadir funcionalidad de pantalla completa a los iframes
-            document.querySelectorAll('.portafolio-item').forEach(item => {
-                const iframe = item.querySelector('iframe');
-                const button = item.querySelector('.fullscreen-btn');
-                
-                button.addEventListener('click', () => {
-                    toggleFullScreen(iframe, button);
-                });
-                
-                // Actualizar ícono cuando se sale de pantalla completa
-                document.addEventListener('fullscreenchange', () => {
-                    if (!document.fullscreenElement) {
-                        button.querySelector('i').classList.remove('bi-fullscreen-exit');
-                        button.querySelector('i').classList.add('bi-arrows-fullscreen');
-                    }
-                });
             });
         });
     </script>
