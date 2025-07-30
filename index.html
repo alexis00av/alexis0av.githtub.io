@@ -1344,7 +1344,7 @@
         <div class="portafolio-grid">
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-dynamic-aerial-shot-of-a-city-13620-large.mp4" type="video/mp4">
+                    <source src="https://drive.google.com/uc?export=download&id=1s2chnog65ho82v1k0g" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1357,7 +1357,7 @@
             </div>
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-woman-editing-on-a-computer-4589-large.mp4" type="video/mp4">
+                    <source src="https://drive.google.com/uc?export=download&id=1s2enfog65qfgb1qsd0" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1370,7 +1370,7 @@
             </div>
             <div class="portafolio-item">
                 <video controls muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-13621-large.mp4" type="video/mp4">
+                    <source src="https://drive.google.com/uc?export=download&id=1m4opnog65hcr4g8bj0" type="video/mp4">
                     Tu navegador no soporta el elemento de video.
                 </video>
                 <button class="fullscreen-btn" aria-label="Toggle Fullscreen">
@@ -1928,28 +1928,3 @@
             document.querySelector('#contacto p').textContent = langData.contactText;
             
             // Actualizar footer
-            document.querySelector('footer p').textContent = langData.footerText;
-        }
-        
-        // Función para alternar modo pantalla completa
-        function toggleFullScreen(video) {
-            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    video.webkitRequestFullscreen();
-                } else if (video.mozRequestFullScreen) {
-                    video.mozRequestFullScreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                }
-            }
-        }
-        
-        document
