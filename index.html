@@ -17,8 +17,9 @@
             --text-secondary: #7d8590;
             --accent-color: #58a6ff;
             --accent-hover: #79c0ff;
-            --premium-gradient: linear-gradient(135deg, #8a2be2, #58a6ff);
-            --gold: #ffd700;
+            --prisma-color: #8a2be2;
+            --vertice-color: #58a6ff;
+            --elite-color: #ffd700;
             --whatsapp: #25D366;
             --email: #D44638;
         }
@@ -480,7 +481,6 @@
 
         .plan {
             background: var(--bg-light);
-            border: 1px solid rgba(88, 166, 255, 0.2);
             border-radius: 20px;
             padding: 50px 30px;
             position: relative;
@@ -488,6 +488,7 @@
             overflow: hidden;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid var(--accent-color);
         }
 
         .plan:hover {
@@ -496,7 +497,7 @@
         }
 
         .plan.recomendado {
-            border: 2px solid var(--accent-color);
+            border-top: 5px solid var(--vertice-color);
             transform: scale(1.03);
             z-index: 2;
             box-shadow: 0 20px 50px rgba(88, 166, 255, 0.4);
@@ -507,7 +508,7 @@
             position: absolute;
             top: 20px;
             right: -35px;
-            background: var(--accent-color);
+            background: var(--vertice-color);
             color: var(--bg-dark);
             font-weight: 700;
             font-size: 0.9em;
@@ -517,27 +518,34 @@
             text-align: center;
         }
 
-        .plan.premium {
-            background: linear-gradient(135deg, #1a1f29, #0d1117);
-            border: 1px solid rgba(138, 43, 226, 0.5);
+        .plan.prisma {
+            border-top: 5px solid var(--prisma-color);
         }
 
-        .plan.premium .nombre-plan {
-            background: var(--premium-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .plan.vertice {
+            border-top: 5px solid var(--vertice-color);
+        }
+
+        .plan.elite {
+            border-top: 5px solid var(--elite-color);
+        }
+
+        .plan .plan-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.2);
         }
 
         .plan .nombre-plan {
             font-size: 2em;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .plan .precio {
             font-size: 3.5em;
             font-weight: 800;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: var(--text-primary);
         }
 
@@ -547,29 +555,110 @@
             font-weight: 400;
         }
 
+        .plan .enfoque {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
         .plan .caracteristicas {
             list-style: none;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: left;
         }
 
         .plan .caracteristicas li {
             padding: 12px 0;
-            border-bottom: 1px solid rgba(88, 166, 255, 0.1);
             color: var(--text-secondary);
             display: flex;
             align-items: center;
             font-size: 1.1em;
+            position: relative;
+            padding-left: 30px;
         }
 
-        .plan .caracteristicas li:last-child {
-            border-bottom: none;
+        .plan .caracteristicas li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: rgba(88, 166, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: var(--accent-color);
         }
 
         .plan .caracteristicas li i {
             color: var(--accent-color);
-            margin-right: 15px;
+            margin-right: 10px;
             font-size: 1.3em;
+        }
+
+        .plan .beneficios {
+            background: rgba(88, 166, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .plan .beneficios h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plan .beneficios h4 i {
+            font-size: 1.5em;
+        }
+
+        .plan .beneficios ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .plan .beneficios li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .plan .beneficios li:before {
+            content: '✓';
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .plan .duracion-entrega {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(88, 166, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .plan .duracion-entrega div {
+            text-align: center;
+            flex: 1;
+        }
+
+        .plan .duracion-entrega div span:first-child {
+            font-weight: 600;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 5px;
         }
 
         .plan .cta-plan {
@@ -594,16 +683,22 @@
             transform: translateY(-5px);
         }
 
-        .plan.premium .cta-plan {
-            background: var(--premium-gradient);
+        .plan.prisma .cta-plan {
+            background: var(--prisma-color);
             color: white;
-            border: none;
+            border-color: var(--prisma-color);
         }
 
-        .plan.premium .cta-plan:hover {
-            background: transparent;
-            border: 2px solid #8a2be2;
-            color: var(--accent-color);
+        .plan.vertice .cta-plan {
+            background: var(--vertice-color);
+            color: var(--bg-dark);
+            border-color: var(--vertice-color);
+        }
+
+        .plan.elite .cta-plan {
+            background: var(--elite-color);
+            color: var(--bg-dark);
+            border-color: var(--elite-color);
         }
 
         .notes-container {
@@ -943,7 +1038,7 @@
         }
 
         .estrellas {
-            color: var(--gold);
+            color: var(--elite-color);
             margin-bottom: 15px;
             font-size: 1.2em;
             display: flex;
@@ -1141,6 +1236,10 @@
                 max-width: 90vw;
                 aspect-ratio: 9/16;
             }
+            .plan .duracion-entrega {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1259,47 +1358,121 @@
         <p>Opciones flexibles diseñadas para adaptarse a tus necesidades creativas y presupuesto.</p>
         
         <div class="planes-grid">
-            <div class="plan">
-                <div class="nombre-plan">Básico</div>
-                <div class="precio">$99<span> / video</span></div>
+            <!-- Plan Prisma -->
+            <div class="plan prisma">
+                <div class="plan-header">
+                    <div class="nombre-plan">🎬 Prisma</div>
+                    <div class="precio">$20<span> / video</span></div>
+                    <div class="enfoque">Base sólida para comenzar a dar forma a tu marca</div>
+                </div>
+                
                 <ul class="caracteristicas">
-                    <li><i class="bi bi-check-circle"></i> Hasta 5 minutos de duración</li>
-                    <li><i class="bi bi-check-circle"></i> Edición estándar</li>
-                    <li><i class="bi bi-check-circle"></i> Corrección de color básica</li>
-                    <li><i class="bi bi-check-circle"></i> 1 revisión</li>
-                    <li><i class="bi bi-check-circle"></i> Entrega en 3 días</li>
-                </ul>
-                <a href="#contacto" class="cta-plan">Elegir Plan</a>
-            </div>
-            
-            <div class="plan recomendado">
-                <div class="nombre-plan">Profesional</div>
-                <div class="precio">$199<span> / video</span></div>
-                <ul class="caracteristicas">
-                    <li><i class="bi bi-check-circle"></i> Hasta 10 minutos de duración</li>
-                    <li><i class="bi bi-check-circle"></i> Edición avanzada</li>
+                    <li><i class="bi bi-check-circle"></i> Corte y montaje preciso de clips</li>
+                    <li><i class="bi bi-check-circle"></i> Subtítulos claros con tipografía atractiva</li>
+                    <li><i class="bi bi-check-circle"></i> Música y efectos libres de derechos</li>
                     <li><i class="bi bi-check-circle"></i> Corrección de color profesional</li>
-                    <li><i class="bi bi-check-circle"></i> 2 revisiones</li>
-                    <li><i class="bi bi-check-circle"></i> Transiciones y efectos</li>
-                    <li><i class="bi bi-check-circle"></i> Diseño básico de sonido</li>
-                    <li><i class="bi bi-check-circle"></i> Entrega en 2 días</li>
+                    <li><i class="bi bi-check-circle"></i> Formato vertical 9:16 listo para subir</li>
                 </ul>
+                
+                <div class="beneficios">
+                    <h4><i class="bi bi-check-circle"></i> Beneficios</h4>
+                    <ul>
+                        <li>Contenido rápido y profesional listo para publicar</li>
+                        <li>Mantén una imagen cuidada sin grandes costos</li>
+                        <li>Ideal para publicaciones frecuentes en Reels, TikTok o Shorts</li>
+                    </ul>
+                </div>
+                
+                <div class="duracion-entrega">
+                    <div>
+                        <span>Duración</span>
+                        <span>15 a 45 segundos</span>
+                    </div>
+                    <div>
+                        <span>Entrega</span>
+                        <span>1-2 días hábiles</span>
+                    </div>
+                </div>
+                
                 <a href="#contacto" class="cta-plan">Elegir Plan</a>
             </div>
             
-            <div class="plan premium">
-                <div class="nombre-plan">Premium</div>
-                <div class="precio">$349<span> / video</span></div>
+            <!-- Plan Vértice (Recomendado) -->
+            <div class="plan vertice recomendado">
+                <div class="plan-header">
+                    <div class="nombre-plan">🚀 Vértice</div>
+                    <div class="precio">$35<span> / video</span></div>
+                    <div class="enfoque">Llama la atención, mantén a tu audiencia conectada</div>
+                </div>
+                
                 <ul class="caracteristicas">
-                    <li><i class="bi bi-check-circle"></i> Duración ilimitada</li>
-                    <li><i class="bi bi-check-circle"></i> Edición profesional completa</li>
-                    <li><i class="bi bi-check-circle"></i> Motion graphics y animaciones</li>
-                    <li><i class="bi bi-check-circle"></i> Diseño de sonido profesional</li>
-                    <li><i class="bi bi-check-circle"></i> Subtítulos y gráficos</li>
-                    <li><i class="bi bi-check-circle"></i> Revisiones ilimitadas</li>
-                    <li><i class="bi bi-check-circle"></i> Entrega en 24-48 horas</li>
-                    <li><i class="bi bi-check-circle"></i> Soporte prioritario</li>
+                    <li><i class="bi bi-check-circle"></i> Animaciones personalizadas de textos e íconos</li>
+                    <li><i class="bi bi-check-circle"></i> Transiciones creativas y modernas</li>
+                    <li><i class="bi bi-check-circle"></i> Música y efectos libres de derechos</li>
+                    <li><i class="bi bi-check-circle"></i> Corrección de color avanzada</li>
+                    <li><i class="bi bi-check-circle"></i> Formato vertical 9:16 optimizado</li>
                 </ul>
+                
+                <div class="beneficios">
+                    <h4><i class="bi bi-check-circle"></i> Beneficios</h4>
+                    <ul>
+                        <li>Aumenta la retención de la audiencia</li>
+                        <li>Le da un estilo único y profesional a tu contenido</li>
+                        <li>Mejora la interacción y recordación de marca</li>
+                    </ul>
+                </div>
+                
+                <div class="duracion-entrega">
+                    <div>
+                        <span>Duración</span>
+                        <span>15 a 45 segundos</span>
+                    </div>
+                    <div>
+                        <span>Entrega</span>
+                        <span>2-3 días hábiles</span>
+                    </div>
+                </div>
+                
+                <a href="#contacto" class="cta-plan">Elegir Plan</a>
+            </div>
+            
+            <!-- Plan Élite -->
+            <div class="plan elite">
+                <div class="plan-header">
+                    <div class="nombre-plan">👑 Élite</div>
+                    <div class="precio">$55<span> / video</span></div>
+                    <div class="enfoque">El nivel más alto para un impacto visual extraordinario</div>
+                </div>
+                
+                <ul class="caracteristicas">
+                    <li><i class="bi bi-check-circle"></i> Montaje profesional con ritmo fluido</li>
+                    <li><i class="bi bi-check-circle"></i> Animaciones y gráficos personalizados</li>
+                    <li><i class="bi bi-check-circle"></i> Subtítulos con efectos animados</li>
+                    <li><i class="bi bi-check-circle"></i> Música y efectos libres de derechos</li>
+                    <li><i class="bi bi-check-circle"></i> Corrección de color avanzada y estilizada</li>
+                    <li><i class="bi bi-check-circle"></i> Formato vertical 9:16 optimizado</li>
+                </ul>
+                
+                <div class="beneficios">
+                    <h4><i class="bi bi-check-circle"></i> Beneficios</h4>
+                    <ul>
+                        <li>Convierte tus ideas en piezas audiovisuales de alto impacto</li>
+                        <li>Ideal para destacar por encima de la competencia</li>
+                        <li>Eleva el valor y la percepción de tu marca</li>
+                    </ul>
+                </div>
+                
+                <div class="duracion-entrega">
+                    <div>
+                        <span>Duración</span>
+                        <span>15 a 60 segundos</span>
+                    </div>
+                    <div>
+                        <span>Entrega</span>
+                        <span>3-4 días hábiles</span>
+                    </div>
+                </div>
+                
                 <a href="#contacto" class="cta-plan">Elegir Plan</a>
             </div>
         </div>
@@ -1483,42 +1656,62 @@
                 pricingText: "Opciones flexibles diseñadas para adaptarse a tus necesidades creativas y presupuesto.",
                 plans: [
                     {
-                        name: "Básico",
-                        price: "$99",
+                        name: "🎬 Prisma",
+                        price: "$20",
+                        enfoque: "Base sólida para comenzar a dar forma a tu marca",
                         features: [
-                            "Hasta 5 minutos de duración",
-                            "Edición estándar",
-                            "Corrección de color básica",
-                            "1 revisión",
-                            "Entrega en 3 días"
-                        ]
-                    },
-                    {
-                        name: "Profesional",
-                        price: "$199",
-                        features: [
-                            "Hasta 10 minutos de duración",
-                            "Edición avanzada",
+                            "Corte y montaje preciso de clips",
+                            "Subtítulos claros con tipografía atractiva",
+                            "Música y efectos libres de derechos",
                             "Corrección de color profesional",
-                            "2 revisiones",
-                            "Transiciones y efectos",
-                            "Diseño básico de sonido",
-                            "Entrega en 2 días"
-                        ]
+                            "Formato vertical 9:16 listo para subir"
+                        ],
+                        beneficios: [
+                            "Contenido rápido y profesional listo para publicar",
+                            "Mantén una imagen cuidada sin grandes costos",
+                            "Ideal para publicaciones frecuentes en Reels, TikTok o Shorts"
+                        ],
+                        duracion: "15 a 45 segundos",
+                        entrega: "1-2 días hábiles"
                     },
                     {
-                        name: "Premium",
-                        price: "$349",
+                        name: "🚀 Vértice",
+                        price: "$35",
+                        enfoque: "Llama la atención, mantén a tu audiencia conectada",
                         features: [
-                            "Duración ilimitada",
-                            "Edición profesional completa",
-                            "Motion graphics y animaciones",
-                            "Diseño de sonido profesional",
-                            "Subtítulos y gráficos",
-                            "Revisiones ilimitadas",
-                            "Entrega en 24-48 horas",
-                            "Soporte prioritario"
-                        ]
+                            "Animaciones personalizadas de textos e íconos",
+                            "Transiciones creativas y modernas",
+                            "Música y efectos libres de derechos",
+                            "Corrección de color avanzada",
+                            "Formato vertical 9:16 optimizado"
+                        ],
+                        beneficios: [
+                            "Aumenta la retención de la audiencia",
+                            "Le da un estilo único y profesional a tu contenido",
+                            "Mejora la interacción y recordación de marca"
+                        ],
+                        duracion: "15 a 45 segundos",
+                        entrega: "2-3 días hábiles"
+                    },
+                    {
+                        name: "👑 Élite",
+                        price: "$55",
+                        enfoque: "El nivel más alto para un impacto visual extraordinario",
+                        features: [
+                            "Montaje profesional con ritmo fluido",
+                            "Animaciones y gráficos personalizados",
+                            "Subtítulos con efectos animados",
+                            "Música y efectos libres de derechos",
+                            "Corrección de color avanzada y estilizada",
+                            "Formato vertical 9:16 optimizado"
+                        ],
+                        beneficios: [
+                            "Convierte tus ideas en piezas audiovisuales de alto impacto",
+                            "Ideal para destacar por encima de la competencia",
+                            "Eleva el valor y la percepción de tu marca"
+                        ],
+                        duracion: "15 a 60 segundos",
+                        entrega: "3-4 días hábiles"
                     }
                 ],
                 notesTitle: "Notas importantes",
@@ -1624,42 +1817,62 @@
                 pricingText: "Flexible options designed to fit your creative needs and budget.",
                 plans: [
                     {
-                        name: "Basic",
-                        price: "$99",
+                        name: "🎬 Prism",
+                        price: "$20",
+                        enfoque: "Solid foundation to start shaping your brand",
                         features: [
-                            "Up to 5 minutes duration",
-                            "Standard editing",
-                            "Basic color correction",
-                            "1 revision",
-                            "Delivery in 3 days"
-                        ]
-                    },
-                    {
-                        name: "Professional",
-                        price: "$199",
-                        features: [
-                            "Up to 10 minutes duration",
-                            "Advanced editing",
+                            "Precise clip cutting and assembly",
+                            "Clear subtitles with attractive typography",
+                            "Royalty-free music and effects",
                             "Professional color correction",
-                            "2 revisions",
-                            "Transitions and effects",
-                            "Basic sound design",
-                            "Delivery in 2 days"
-                        ]
+                            "Vertical 9:16 format ready to upload"
+                        ],
+                        beneficios: [
+                            "Quick, professional content ready to publish",
+                            "Maintain a polished image without high costs",
+                            "Ideal for frequent posts on Reels, TikTok or Shorts"
+                        ],
+                        duracion: "15 to 45 seconds",
+                        entrega: "1-2 business days"
                     },
                     {
-                        name: "Premium",
-                        price: "$349",
+                        name: "🚀 Vertex",
+                        price: "$35",
+                        enfoque: "Capture attention, keep your audience engaged",
                         features: [
-                            "Unlimited duration",
-                            "Complete professional editing",
-                            "Motion graphics and animations",
-                            "Professional sound design",
-                            "Subtitles and graphics",
-                            "Unlimited revisions",
-                            "Delivery in 24-48 hours",
-                            "Priority support"
-                        ]
+                            "Custom text and icon animations",
+                            "Creative and modern transitions",
+                            "Royalty-free music and effects",
+                            "Advanced color correction",
+                            "Optimized vertical 9:16 format"
+                        ],
+                        beneficios: [
+                            "Increases audience retention",
+                            "Gives your content a unique professional style",
+                            "Improves interaction and brand recall"
+                        ],
+                        duracion: "15 to 45 seconds",
+                        entrega: "2-3 business days"
+                    },
+                    {
+                        name: "👑 Elite",
+                        price: "$55",
+                        enfoque: "The highest level for extraordinary visual impact",
+                        features: [
+                            "Professional editing with fluid rhythm",
+                            "Custom animations and graphics",
+                            "Animated subtitle effects",
+                            "Royalty-free music and effects",
+                            "Advanced stylized color correction",
+                            "Optimized vertical 9:16 format"
+                        ],
+                        beneficios: [
+                            "Transforms your ideas into high-impact audiovisual pieces",
+                            "Ideal for standing out above the competition",
+                            "Elevates your brand value and perception"
+                        ],
+                        duracion: "15 to 60 seconds",
+                        entrega: "3-4 business days"
                     }
                 ],
                 notesTitle: "Important Notes",
@@ -1840,26 +2053,51 @@
             
             const plans = document.querySelectorAll('.plan');
             langData.plans.forEach((plan, index) => {
-                plans[index].querySelector('.nombre-plan').textContent = plan.name;
-                plans[index].querySelector('.precio').innerHTML = `${plan.price}<span> / video</span>`;
+                const planElement = plans[index];
+                planElement.querySelector('.nombre-plan').textContent = plan.name;
+                planElement.querySelector('.precio').innerHTML = `${plan.price}<span> / video</span>`;
+                planElement.querySelector('.enfoque').textContent = plan.enfoque;
                 
-                const features = plans[index].querySelectorAll('.caracteristicas li');
+                const features = planElement.querySelectorAll('.caracteristicas li');
                 plan.features.forEach((feature, featIndex) => {
-                    features[featIndex].textContent = feature;
+                    if (features[featIndex]) {
+                        features[featIndex].textContent = feature;
+                    }
                 });
+                
+                const beneficios = planElement.querySelectorAll('.beneficios li');
+                plan.beneficios.forEach((beneficio, benefIndex) => {
+                    if (beneficios[benefIndex]) {
+                        beneficios[benefIndex].textContent = beneficio;
+                    }
+                });
+                
+                const duracionEntrega = planElement.querySelectorAll('.duracion-entrega div span');
+                if (duracionEntrega[0]) {
+                    duracionEntrega[0].textContent = "Duration";
+                    duracionEntrega[1].textContent = plan.duracion;
+                    duracionEntrega[2].textContent = "Delivery";
+                    duracionEntrega[3].textContent = plan.entrega;
+                }
             });
             
             document.querySelector('.notes-container h3').innerHTML = `<i class="bi bi-info-circle"></i> ${langData.notesTitle}`;
             const notes = document.querySelectorAll('.notes-container li');
             langData.notes.forEach((note, index) => {
-                notes[index].textContent = note;
+                if (notes[index]) {
+                    notes[index].textContent = note;
+                }
             });
             
             document.querySelector('#portafolio h2').textContent = langData.portfolioTitle;
             const portfolioItems = document.querySelectorAll('.overlay h3, .overlay p');
             langData.portfolioItems.forEach((item, index) => {
-                portfolioItems[index * 2].textContent = item.title;
-                portfolioItems[index * 2 + 1].textContent = item.desc;
+                if (portfolioItems[index * 2]) {
+                    portfolioItems[index * 2].textContent = item.title;
+                }
+                if (portfolioItems[index * 2 + 1]) {
+                    portfolioItems[index * 2 + 1].textContent = item.desc;
+                }
             });
             
             document.querySelector('#recursos h2').textContent = langData.resourcesTitle;
